@@ -37,11 +37,6 @@ public class Main {
 			System.err.println(PARSE_ERROR);
 		}
 		
-		//debug
-		/*System.out.println("CSV File: " + csvFile);
-		System.out.println("Bing Key: " + bingKey);*/
-		
-		
 	}
 
 }
