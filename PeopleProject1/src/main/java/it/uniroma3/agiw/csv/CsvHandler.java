@@ -15,34 +15,52 @@ public class CsvHandler {
 	
 	private File inputFile;
 	private int actualRow;
-	private PersonEntry actualEntry;
 	
 	public CsvHandler(File inputFile) {
 		this.inputFile = inputFile;
 		this.actualRow = 0;
 	}
 	
-	public void readNextRow() throws IOException {
+	public PersonEntry readNextRow() throws IOException {
+		PersonEntry entry;
+		
 		CSVReader reader = new CSVReader(new FileReader(this.inputFile), ',');
 		List<String[]> csvBody = reader.readAll();
 		String[] row = csvBody.get(this.actualRow);
 		
-		actualEntry = new PersonEntry(row[0], row[1], (row.equals("0")) ? true : false);
+		entry = new PersonEntry(row[0], row[1], (row.equals("0")) ? true : false);
+		actualRow++;
 		
 		reader.close();
+		return entry;
 	}
 	
-	public void updateRow() throws IOException {
-		PersonEntry entry = this.getActualEntry();
+	public PersonEntry readRowByIndex(int index) throws IOException {
+		PersonEntry entry = null;
 		
+		CSVReader reader = new CSVReader(new FileReader(this.inputFile), ',');
+		List<String[]> csvBody = reader.readAll();
+		String[] row = csvBody.get(index);
+		
+		entry = new PersonEntry(row[0], row[1], !row[2].equals("0"));
+		
+		reader.close();
+		
+		return entry;
+	}
+	
+	public void updateRow(PersonEntry entry) throws IOException {
+		this.updateRowByIndex(entry, this.actualRow-1);
+	}
+	
+	public void updateRowByIndex(PersonEntry entry, int row) throws IOException {
 		String[] replace = {
-			entry.getPerson().getName(),
-			entry.getPerson().getSurname(),
-			"1" //alreadyFetched
-		};
+				entry.getPerson().getName(),
+				entry.getPerson().getSurname(),
+				(entry.isAlreadyFetched()) ? "1" : "0"
+			};
 		
-		this.updateCSVRow(replace, this.actualRow);
-		this.actualRow++;
+		this.updateCSVRow(replace, row);
 	}
 	
 	private void updateCSVRow(String[] replace, int row) throws IOException {
@@ -61,10 +79,6 @@ public class CsvHandler {
 		writer.writeAll(csvBody);
 		writer.flush();
 		writer.close();
-	}
-
-	public PersonEntry getActualEntry() {
-		return actualEntry;
 	}
 	
 }
