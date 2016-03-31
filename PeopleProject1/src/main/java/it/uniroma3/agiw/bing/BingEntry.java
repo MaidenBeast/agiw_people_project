@@ -4,6 +4,7 @@ import java.net.URL;
 
 public class BingEntry {
 	private String bingIDEntry;
+	private String bingQueryString;
 	private String title;
 	private String description;
 	private String displayUrl;
@@ -49,10 +50,18 @@ public class BingEntry {
 		this.url = url;
 	}
 
+	public String getBingQueryString() {
+		return bingQueryString;
+	}
+
+	public void setBingQueryString(String bingQueryString) {
+		this.bingQueryString = bingQueryString;
+	}
+
 	@Override
 	public String toString() {
-		return "BingEntry [bingIDEntry=" + bingIDEntry + ", title=" + title + ", description=" + description
-				+ ", displayUrl=" + displayUrl + ", url=" + url + "]";
+		return "BingEntry [bingIDEntry=" + bingIDEntry + ", bingQueryString=" + bingQueryString + ", title=" + title
+				+ ", description=" + description + ", displayUrl=" + displayUrl + ", url=" + url + "]";
 	}
 
 	@Override
@@ -60,6 +69,7 @@ public class BingEntry {
 		final int prime = 31;
 		int result = 1;
 		result = prime * result + ((bingIDEntry == null) ? 0 : bingIDEntry.hashCode());
+		result = prime * result + ((bingQueryString == null) ? 0 : bingQueryString.hashCode());
 		result = prime * result + ((description == null) ? 0 : description.hashCode());
 		result = prime * result + ((displayUrl == null) ? 0 : displayUrl.hashCode());
 		result = prime * result + ((title == null) ? 0 : title.hashCode());
@@ -80,6 +90,11 @@ public class BingEntry {
 			if (other.bingIDEntry != null)
 				return false;
 		} else if (!bingIDEntry.equals(other.bingIDEntry))
+			return false;
+		if (bingQueryString == null) {
+			if (other.bingQueryString != null)
+				return false;
+		} else if (!bingQueryString.equals(other.bingQueryString))
 			return false;
 		if (description == null) {
 			if (other.description != null)

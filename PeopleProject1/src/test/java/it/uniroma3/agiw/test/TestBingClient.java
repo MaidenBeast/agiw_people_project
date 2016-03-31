@@ -14,7 +14,7 @@ public class TestBingClient {
 		BingClient bingClient = new BingClient("b8rXeSU639rGO8IqB6ITd6Mk3vJXPcVYesgbvkwjxr8");
 		List<BingEntry> bingEntryList = null;
 		try {
-			bingEntryList = bingClient.executeBingQuery(new Person("Valentino", "Rossi"), 0);
+			bingEntryList = bingClient.executeBingQuery(new Person("Riccardo", "Rossi"), 0);
 			//System.out.println(bingEntryList);
 			System.out.println("Lunghezza lista: "+bingEntryList.size());
 		} catch (UnsupportedEncodingException e) {

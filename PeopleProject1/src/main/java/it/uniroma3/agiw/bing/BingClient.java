@@ -32,6 +32,10 @@ public class BingClient {
 		
 		String query = URLEncoder.encode("'"+person.getName()+" "
 				+person.getSurname()+"'", "UTF-8");
+		
+		String market = URLEncoder.encode("'it-IT'", "UTF-8"); //pagine in italiano
+		String adult = URLEncoder.encode("'Strict'", "UTF-8");
+		String skip = String.valueOf(page*500);
 
 		ODataConsumer c = ODataConsumers.dataMarket(this.SERVICE_ROOT_URI,
 				this.bingKey);
@@ -39,17 +43,20 @@ public class BingClient {
 		//Pare che il client OData effettui 5 transazioni alla volta...
 		OQueryRequest<OEntity> oRequest = c.getEntities("Web")
 				.custom("Query", query)
-				.custom("Market", URLEncoder.encode("'it-IT'", "UTF-8"))	//pagine in italiano
-				.custom("Adult", URLEncoder.encode("'Strict'", "UTF-8"))
+				.custom("Market", market)
+				.custom("Adult", adult)
 				//.custom("$top", "50")
-				.custom("$skip", String.valueOf(page*500));
+				.custom("$skip", skip);
 
+		String queryString = SERVICE_ROOT_URI+"Web?Query="+query+"&Market="+market+"&Adult="+adult+"$skip"+skip;
+		
 		Enumerable<OEntity> entities = oRequest.execute();
 		
 		for (OEntity entity : entities) {
 			BingEntry bingEntry = new BingEntry();
 			
 			bingEntry.setBingIDEntry(entity.getProperty("ID", Guid.class).getValue().toString());
+			bingEntry.setBingQueryString(queryString);
 			bingEntry.setTitle(entity.getProperty("Title", String.class).getValue());
 			bingEntry.setDescription(entity.getProperty("Description", String.class).getValue());
 			bingEntry.setDisplayUrl(entity.getProperty("DisplayUrl", String.class).getValue());
