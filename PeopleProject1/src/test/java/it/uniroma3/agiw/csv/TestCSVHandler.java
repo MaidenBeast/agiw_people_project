@@ -87,7 +87,7 @@ public class TestCSVHandler {
 			entry3 = csvHandler.readRowByIndex(2);
 			assertEquals(new PersonEntry("Riccardo", "Bruni", false), entry3);
 			
-			//entry 3
+			//entry 4
 			PersonEntry entry4 = csvHandler.readNextRow();			
 			assertEquals(new PersonEntry("Marco", "Verdi", false), entry4);
 			
@@ -100,6 +100,10 @@ public class TestCSVHandler {
 			csvHandler.updateRowByIndex(entry4, 3);
 			entry4 = csvHandler.readRowByIndex(3);
 			assertEquals(new PersonEntry("Marco", "Verdi", false), entry4);
+			
+			//entry null
+			PersonEntry entryNull = csvHandler.readNextRow();
+			assertNull(entryNull);
 			
 		} catch (IOException e) {
 			// TODO Auto-generated catch block

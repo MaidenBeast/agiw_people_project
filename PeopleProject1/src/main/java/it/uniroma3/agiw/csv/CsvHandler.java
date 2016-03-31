@@ -22,16 +22,8 @@ public class CsvHandler {
 	}
 	
 	public PersonEntry readNextRow() throws IOException {
-		PersonEntry entry;
-		
-		CSVReader reader = new CSVReader(new FileReader(this.inputFile), ',');
-		List<String[]> csvBody = reader.readAll();
-		String[] row = csvBody.get(this.actualRow);
-		
-		entry = new PersonEntry(row[0], row[1], (row.equals("0")) ? true : false);
-		actualRow++;
-		
-		reader.close();
+		PersonEntry entry = this.readRowByIndex(this.actualRow);
+		this.actualRow++;
 		return entry;
 	}
 	
@@ -40,12 +32,17 @@ public class CsvHandler {
 		
 		CSVReader reader = new CSVReader(new FileReader(this.inputFile), ',');
 		List<String[]> csvBody = reader.readAll();
-		String[] row = csvBody.get(index);
 		
-		entry = new PersonEntry(row[0], row[1], !row[2].equals("0"));
+		/*
+		 * solo nel caso in cui l'index non sfori il numero di righe
+		 * del file CSV leggi la entry, altrimenti ritorna null
+		 */
+		if (index < csvBody.size()) {
+			String[] row = csvBody.get(index);
+			entry = new PersonEntry(row[0], row[1], !row[2].equals("0"));
+		}
 		
 		reader.close();
-		
 		return entry;
 	}
 	
