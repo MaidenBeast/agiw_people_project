@@ -78,4 +78,19 @@ public class CsvHandler {
 		writer.close();
 	}
 	
+	public int getRemainingEntries() throws IOException {
+		int remainingEntries = 0;
+		
+		CSVReader reader = new CSVReader(new FileReader(this.inputFile), ',');
+		List<String[]> csvBody = reader.readAll();
+		
+		for (String[] row : csvBody) {
+			if (row[2].equals("0")) //entry ancora non letta
+				remainingEntries++;
+		}
+		
+		reader.close();
+		return remainingEntries;
+	}
+	
 }

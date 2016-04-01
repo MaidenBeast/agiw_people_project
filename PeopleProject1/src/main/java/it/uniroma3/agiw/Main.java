@@ -1,10 +1,15 @@
 package it.uniroma3.agiw;
 
+import java.io.File;
+import java.io.IOException;
+
 import org.apache.commons.cli.CommandLine;
 import org.apache.commons.cli.CommandLineParser;
 import org.apache.commons.cli.DefaultParser;
 import org.apache.commons.cli.Options;
 import org.apache.commons.cli.ParseException;
+
+import it.uniroma3.agiw.csv.CsvHandler;
 
 public class Main {
 
@@ -17,6 +22,9 @@ public class Main {
 
 		CommandLineParser parser = new DefaultParser();
 		CommandLine cmd;
+		
+		PeopleCrawler crawler = null;
+		CsvHandler csvHandler = null;
 		
 		String csvFile = null;
 		String bingKey = null;
@@ -39,9 +47,21 @@ public class Main {
 				 remainingQueries = Integer.parseInt(cmd.getOptionValue("r"));
 			 }
 			 
+			 crawler = new PeopleCrawler(remainingQueries, bingKey);
+			 csvHandler = new CsvHandler(new File(csvFile));
+			 crawler.setCsvHandler(csvHandler);
+			 
+			 crawler.execute();
+			 
 		} catch (ParseException e) {
 			System.err.println("Parsing failed. Reason: " + e.getMessage() );
 			System.err.println(PARSE_ERROR);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
 		
 	}

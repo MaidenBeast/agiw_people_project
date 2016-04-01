@@ -3,20 +3,12 @@ package it.uniroma3.agiw.bing;
 import java.net.URL;
 
 public class BingEntry {
-	private String bingIDEntry;
+	private String bingQueryID;
 	private String bingQueryString;
 	private String title;
 	private String description;
 	private String displayUrl;
 	private URL url;
-	
-	public String getBingIDEntry() {
-		return bingIDEntry;
-	}
-	
-	public void setBingIDEntry(String bingIDEntry) {
-		this.bingIDEntry = bingIDEntry;
-	}
 	
 	public String getTitle() {
 		return title;
@@ -58,9 +50,17 @@ public class BingEntry {
 		this.bingQueryString = bingQueryString;
 	}
 
+	public String getBingQueryID() {
+		return bingQueryID;
+	}
+
+	public void setBingQueryID(String bingQueryID) {
+		this.bingQueryID = bingQueryID;
+	}
+
 	@Override
 	public String toString() {
-		return "BingEntry [bingIDEntry=" + bingIDEntry + ", bingQueryString=" + bingQueryString + ", title=" + title
+		return "BingEntry [bingQueryID=" + bingQueryID + ", bingQueryString=" + bingQueryString + ", title=" + title
 				+ ", description=" + description + ", displayUrl=" + displayUrl + ", url=" + url + "]";
 	}
 
@@ -68,7 +68,7 @@ public class BingEntry {
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result + ((bingIDEntry == null) ? 0 : bingIDEntry.hashCode());
+		result = prime * result + ((bingQueryID == null) ? 0 : bingQueryID.hashCode());
 		result = prime * result + ((bingQueryString == null) ? 0 : bingQueryString.hashCode());
 		result = prime * result + ((description == null) ? 0 : description.hashCode());
 		result = prime * result + ((displayUrl == null) ? 0 : displayUrl.hashCode());
@@ -86,10 +86,10 @@ public class BingEntry {
 		if (getClass() != obj.getClass())
 			return false;
 		BingEntry other = (BingEntry) obj;
-		if (bingIDEntry == null) {
-			if (other.bingIDEntry != null)
+		if (bingQueryID == null) {
+			if (other.bingQueryID != null)
 				return false;
-		} else if (!bingIDEntry.equals(other.bingIDEntry))
+		} else if (!bingQueryID.equals(other.bingQueryID))
 			return false;
 		if (bingQueryString == null) {
 			if (other.bingQueryString != null)
