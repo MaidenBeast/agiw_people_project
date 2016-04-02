@@ -17,22 +17,23 @@ import it.uniroma3.agiw.bing.BingEntry;
 
 public class PeopleDataHandlerThread extends Thread {
 	private BingEntry entry;
-	private Person person;
+	private PersonEntry pEntry;
 	
-	public PeopleDataHandlerThread(BingEntry entry, Person person) {
+	public PeopleDataHandlerThread(BingEntry entry, PersonEntry pEntry) {
 		this.entry = entry;
-		this.person = person;
+		this.pEntry = pEntry;
 	}
 	
 	public void run() {
 		System.out.println("Fetching "+entry.getUrl());
+		this.pEntry.increaseFetchedPages();
 		try {
 			//FileUtils.copyURLToFile(entry.getUrl(), new File("output/"+entry.getBingQueryID()+".html"));
 			Document doc = Jsoup.connect(entry.getUrl().toString()).get();
 			String text = doc.text(); //solo testo, no tag (effettuo controllo su esso)
 			
-			String pToLowerCase = person.getName().toLowerCase()+" "
-									+person.getSurname().toLowerCase();
+			String pToLowerCase = pEntry.getPerson().getName().toLowerCase()+" "
+									+pEntry.getPerson().getSurname().toLowerCase();
 			
 			/*
 			 * nel caso in cui c'è l'EXACT MATCH o per il titolo,
@@ -45,17 +46,21 @@ public class PeopleDataHandlerThread extends Thread {
 				PrintWriter out = new PrintWriter("output/"+entry.getBingQueryID()+".html");
 				out.println(html);
 				out.close();
+				this.pEntry.increaseSavedPages();
+				System.out.println("Saved "+entry.getUrl()+" to "+"output/"+entry.getBingQueryID()+".html "+pEntry.getPerson());
 			} else {
-				System.out.println("Dropped "+entry.getUrl());
+				this.pEntry.increaseDroppedPages();
+				System.out.println("Dropped "+entry.getUrl()+" "+pEntry.getPerson());
 				return; //esco dalla funzione
 			}
 			
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
+			System.out.println("Error while fetching "+entry.getUrl()+" "+pEntry.getPerson());
+			this.pEntry.increaseErrorPages();
 			e.printStackTrace();
 			return;
 		}
-		System.out.println("Saved "+entry.getUrl()+" to "+"output/"+entry.getBingQueryID()+".html");
 		
 		TimeZone tz = TimeZone.getTimeZone("UTC");
 		DateFormat df = new SimpleDateFormat("yyyy-MM-dd'T'HH:mmZ");
@@ -66,6 +71,8 @@ public class PeopleDataHandlerThread extends Thread {
 		
 		outObj.put("bing_query_string", entry.getBingQueryString());
 		outObj.put("fetch_date", fetchTime);
+		outObj.put("name", pEntry.getPerson().getName());
+		outObj.put("surname", pEntry.getPerson().getSurname());
 		outObj.put("title", entry.getTitle());
 		outObj.put("description", entry.getDescription());
 		outObj.put("url", entry.getUrl().toString());
@@ -81,6 +88,7 @@ public class PeopleDataHandlerThread extends Thread {
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
+			this.pEntry.increaseErrorPages();
 			return;
 		}
 	}

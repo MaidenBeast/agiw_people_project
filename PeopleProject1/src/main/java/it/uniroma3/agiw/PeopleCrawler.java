@@ -44,13 +44,14 @@ public class PeopleCrawler {
 				for (int i = 0; i<queryPerPerson; i++) {
 					List<BingEntry> page =
 							this.bingClient.executeBingQuery(pEntry.getPerson(), i);
-					pdHandler.crawle(page, pEntry.getPerson());
+					pdHandler.crawle(page, pEntry);
 					Thread.sleep(1000); //attesa di un secondo
 				}
 				
 			} //altrimenti non fare niente
 			
-			this.csvHandler.updateRow(new PersonEntry(pEntry.getPerson(), true));
+			pEntry.setAlreadyFetched(true);
+			this.csvHandler.updateRow(pEntry);
 			pEntry = this.csvHandler.readNextRow();
 		}
 	}

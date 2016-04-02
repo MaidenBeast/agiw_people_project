@@ -39,7 +39,14 @@ public class CsvHandler {
 		 */
 		if (index < csvBody.size()) {
 			String[] row = csvBody.get(index);
-			entry = new PersonEntry(row[0], row[1], !row[2].equals("0"));
+			//entry = new PersonEntry(row[0], row[1], !row[2].equals("0"));
+			entry = new PersonEntry(row[0],
+									row[1],
+									!row[2].equals("0"),
+									Integer.parseInt(row[3]),
+									Integer.parseInt(row[4]),
+									Integer.parseInt(row[5]),
+									Integer.parseInt(row[6]));
 		}
 		
 		reader.close();
@@ -54,7 +61,11 @@ public class CsvHandler {
 		String[] replace = {
 				entry.getPerson().getName(),
 				entry.getPerson().getSurname(),
-				(entry.isAlreadyFetched()) ? "1" : "0"
+				(entry.isAlreadyFetched()) ? "1" : "0",
+				String.valueOf(entry.getFetchedPages()),
+				String.valueOf(entry.getSavedPages()),
+				String.valueOf(entry.getDroppedPages()),
+				String.valueOf(entry.getErrorPages())
 			};
 		
 		this.updateCSVRow(replace, row);
@@ -68,6 +79,10 @@ public class CsvHandler {
 		csvBody.get(row)[0] = replace[0]; //name
 		csvBody.get(row)[1] = replace[1]; //surname
 		csvBody.get(row)[2] = replace[2]; //alreadyFetched
+		csvBody.get(row)[3] = replace[3]; //fetchedPages
+		csvBody.get(row)[4] = replace[4]; //savedPages
+		csvBody.get(row)[5] = replace[5]; //getDroppedPages
+		csvBody.get(row)[6] = replace[6]; //errorPages
 		
 		reader.close();
 

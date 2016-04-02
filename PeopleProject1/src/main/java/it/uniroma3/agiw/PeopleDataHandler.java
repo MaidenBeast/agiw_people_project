@@ -17,10 +17,10 @@ public class PeopleDataHandler {
 		threads = new ArrayList<Thread>(50);
 	}
 	
-	public void crawle(List<BingEntry> bingEntries, Person person) throws IOException {
+	public void crawle(List<BingEntry> bingEntries, PersonEntry pEntry) throws IOException {
 		
 		for (BingEntry entry : bingEntries) {
-			PeopleDataHandlerThread thread = new PeopleDataHandlerThread(entry, person);
+			PeopleDataHandlerThread thread = new PeopleDataHandlerThread(entry, pEntry);
 			thread.start();
 			threads.add(thread);
 			
