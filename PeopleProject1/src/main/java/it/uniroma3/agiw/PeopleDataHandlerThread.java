@@ -1,30 +1,55 @@
 package it.uniroma3.agiw;
 
-import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.TimeZone;
 
-import org.apache.commons.io.FileUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.json.JSONObject;
+import org.jsoup.Jsoup;
+import org.jsoup.nodes.Document;
 
 import it.uniroma3.agiw.bing.BingEntry;
 
 public class PeopleDataHandlerThread extends Thread {
 	private BingEntry entry;
+	private Person person;
 	
-	public PeopleDataHandlerThread(BingEntry entry) {
+	public PeopleDataHandlerThread(BingEntry entry, Person person) {
 		this.entry = entry;
+		this.person = person;
 	}
 	
 	public void run() {
 		System.out.println("Fetching "+entry.getUrl());
 		try {
-			FileUtils.copyURLToFile(entry.getUrl(),
-									new File("output/"+entry.getBingQueryID()+".html"));
+			//FileUtils.copyURLToFile(entry.getUrl(), new File("output/"+entry.getBingQueryID()+".html"));
+			Document doc = Jsoup.connect(entry.getUrl().toString()).get();
+			String text = doc.text(); //solo testo, no tag (effettuo controllo su esso)
+			
+			String pToLowerCase = person.getName().toLowerCase()+" "
+									+person.getSurname().toLowerCase();
+			
+			/*
+			 * nel caso in cui non c'è l'EXACT MATCH nè per il titolo,
+			 * nè per la descrizione, nè per il body html
+			 */
+			if (!StringUtils.containsIgnoreCase(entry.getTitle(), pToLowerCase) &&
+					!StringUtils.containsIgnoreCase(entry.getDescription(), pToLowerCase) &&
+					!StringUtils.containsIgnoreCase(text, pToLowerCase)) {
+				System.out.println("Dropped "+entry.getUrl());
+				return; //esco dalla funzione
+			} else {
+				String html = doc.html();
+				PrintWriter out = new PrintWriter("output/"+entry.getBingQueryID()+".html");
+				out.println(html);
+				out.close();
+			}
+			
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

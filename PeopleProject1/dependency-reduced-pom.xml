@@ -4,7 +4,7 @@
   <groupId>it.uniroma3.agiw</groupId>
   <artifactId>PeopleProject1</artifactId>
   <name>People Project 1</name>
-  <version>0.0.1-SNAPSHOT</version>
+  <version>0.1</version>
   <description>People Project No. 1</description>
   <build>
     <plugins>

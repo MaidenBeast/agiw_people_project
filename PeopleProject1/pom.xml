@@ -2,7 +2,7 @@
   <modelVersion>4.0.0</modelVersion>
   <groupId>it.uniroma3.agiw</groupId>
   <artifactId>PeopleProject1</artifactId>
-  <version>0.0.1-SNAPSHOT</version>
+  <version>0.1</version>
   <name>People Project 1</name>
   <description>People Project No. 1</description>
   <dependencies>
@@ -22,16 +22,6 @@
   		<version>0.5</version>
   	</dependency>
   	<dependency>
-  		<groupId>commons-io</groupId>
-  		<artifactId>commons-io</artifactId>
-  		<version>2.4</version>
-  	</dependency>
-  	<dependency>
-  		<groupId>log4j</groupId>
-  		<artifactId>log4j</artifactId>
-  		<version>1.2.17</version>
-  	</dependency>
-  	<dependency>
   		<groupId>commons-codec</groupId>
   		<artifactId>commons-codec</artifactId>
   		<version>1.10</version>
@@ -40,6 +30,16 @@
   		<groupId>org.json</groupId>
   		<artifactId>json</artifactId>
   		<version>20160212</version>
+  	</dependency>
+  	<dependency>
+  		<groupId>org.apache.commons</groupId>
+  		<artifactId>commons-lang3</artifactId>
+  		<version>3.4</version>
+  	</dependency>
+  	<dependency>
+  		<groupId>org.jsoup</groupId>
+  		<artifactId>jsoup</artifactId>
+  		<version>1.8.3</version>
   	</dependency>
   </dependencies>
   
