@@ -32,16 +32,22 @@ public class PeopleDataHandlerThread extends Thread {
 			Document doc = Jsoup.connect(entry.getUrl().toString()).get();
 			String text = doc.text(); //solo testo, no tag (effettuo controllo su esso)
 			
-			String pToLowerCase = pEntry.getPerson().getName().toLowerCase()+" "
-									+pEntry.getPerson().getSurname().toLowerCase();
+			String pToLowerCase1 = pEntry.getPerson().getName().toLowerCase()+" "
+									+pEntry.getPerson().getSurname().toLowerCase(); //"<nome> <cognome>"
+			
+			String pToLowerCase2 = pEntry.getPerson().getSurname().toLowerCase()+" "
+					+pEntry.getPerson().getName().toLowerCase(); //"<cognome> <nome>"
 			
 			/*
 			 * nel caso in cui c'è l'EXACT MATCH o per il titolo,
 			 * o per la descrizione, o per il body html
 			 */
-			if (StringUtils.containsIgnoreCase(entry.getTitle(), pToLowerCase) ||
-					StringUtils.containsIgnoreCase(entry.getDescription(), pToLowerCase) ||
-					StringUtils.containsIgnoreCase(text, pToLowerCase)) {
+			if (StringUtils.containsIgnoreCase(entry.getTitle(), pToLowerCase1) ||
+					StringUtils.containsIgnoreCase(entry.getDescription(), pToLowerCase1) ||
+					StringUtils.containsIgnoreCase(text, pToLowerCase1) ||
+				StringUtils.containsIgnoreCase(entry.getTitle(), pToLowerCase2) ||
+					StringUtils.containsIgnoreCase(entry.getDescription(), pToLowerCase2) ||
+					StringUtils.containsIgnoreCase(text, pToLowerCase2)) {
 				String html = doc.html();
 				PrintWriter out = new PrintWriter("output/"+entry.getBingQueryID()+".html");
 				out.println(html);
