@@ -35,19 +35,19 @@ public class PeopleDataHandlerThread extends Thread {
 									+person.getSurname().toLowerCase();
 			
 			/*
-			 * nel caso in cui non c'è l'EXACT MATCH nè per il titolo,
-			 * nè per la descrizione, nè per il body html
+			 * nel caso in cui c'è l'EXACT MATCH o per il titolo,
+			 * o per la descrizione, o per il body html
 			 */
-			if (!StringUtils.containsIgnoreCase(entry.getTitle(), pToLowerCase) &&
-					!StringUtils.containsIgnoreCase(entry.getDescription(), pToLowerCase) &&
-					!StringUtils.containsIgnoreCase(text, pToLowerCase)) {
-				System.out.println("Dropped "+entry.getUrl());
-				return; //esco dalla funzione
-			} else {
+			if (StringUtils.containsIgnoreCase(entry.getTitle(), pToLowerCase) ||
+					StringUtils.containsIgnoreCase(entry.getDescription(), pToLowerCase) ||
+					StringUtils.containsIgnoreCase(text, pToLowerCase)) {
 				String html = doc.html();
 				PrintWriter out = new PrintWriter("output/"+entry.getBingQueryID()+".html");
 				out.println(html);
 				out.close();
+			} else {
+				System.out.println("Dropped "+entry.getUrl());
+				return; //esco dalla funzione
 			}
 			
 		} catch (IOException e) {
