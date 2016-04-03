@@ -7,7 +7,7 @@ import java.util.Scanner;
 
 public class BulkConfig {
 	
-	final String delim = "|";
+	final String delim = ",";
 	private Properties bulkProperties;
 	
 	public BulkConfig(String propertyPath) throws Exception {
@@ -19,6 +19,7 @@ public class BulkConfig {
 	}
 	
 	public String[] getPropertyArray(String key) {
+		String[] array = {};
 		List<String> values = new ArrayList<>();
 		
 		Scanner s = new Scanner(this.bulkProperties.getProperty(key));
@@ -27,7 +28,7 @@ public class BulkConfig {
 			values.add(s.next());
 		}
 		s.close();
-		return (String[]) values.toArray();
+		return values.toArray(array);
 	}
 	
 	private Properties loadProperties(String propertyPath) throws Exception {
