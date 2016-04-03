@@ -33,12 +33,4 @@ public class BulkBuilder {
 			id += 1;
 		}
 	}
-	
-//	public static void main(String[] args) {
-//		String prova = "foo.bar";
-//		String[] nameExt = prova.split("\\.");
-//		for(String s : nameExt) {
-//			System.out.println(s);
-//		}
-//	}
 }
