@@ -29,7 +29,7 @@ public class PeopleCrawler {
 	}
 	
 	public void execute() throws IOException, InterruptedException {
-		int queryPerPerson = 10;
+		int queryPerPerson = 20;
 		int remainingEntries = this.csvHandler.getRemainingEntries();
 		
 		if (remainingQueries/remainingEntries < 10) {

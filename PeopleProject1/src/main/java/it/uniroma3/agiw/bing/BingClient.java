@@ -17,6 +17,7 @@ import it.uniroma3.agiw.Person;
 public class BingClient {
 	private String bingKey;
 	private final String SERVICE_ROOT_URI = "https://api.datamarket.azure.com/Bing/Search/";
+	private final int OFFSET_PAGE = 50;
 	//private static final Logger LOG = Logger.getLogger(BingClient.class);
 	
 	public BingClient() {}
@@ -34,7 +35,7 @@ public class BingClient {
 		
 		String market = URLEncoder.encode("'it-IT'", "UTF-8"); //pagine in italiano
 		String adult = URLEncoder.encode("'Strict'", "UTF-8");
-		String skip = String.valueOf(page*100);
+		String skip = String.valueOf(page*OFFSET_PAGE);
 		
 		String queryString = SERVICE_ROOT_URI+"Web?Query="+query+"&Market="+market+"&Adult="+adult+"&$skip="+skip+"&$format=JSON";
 		
