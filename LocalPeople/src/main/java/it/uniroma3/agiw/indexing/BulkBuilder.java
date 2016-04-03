@@ -6,29 +6,39 @@ import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.PrintStream;
 import java.util.Map;
+import java.util.Set;
 
 import javax.swing.filechooser.FileNameExtensionFilter;
 
 public class BulkBuilder {
 	
 	private String sourcedir;
-	private PrintStream destStream;
+	private BulkWriter writer;
 	
-	public BulkBuilder(String sourcedir, String destFile) throws FileNotFoundException {
+	public BulkBuilder(String sourcedir, String destFile) throws Exception {
 		this.sourcedir = sourcedir;
-		this.destStream = new PrintStream(new File(destFile));
+		this.writer = new BulkWriter(destFile);
 	}
 	
-	public void writeBulk(String index, String type) {
+	public void buildBulk(String index, String type) throws Exception {
 		FileRetriever htmlRetriever = new FileRetriever(new FileFilterExtension(".html"));
-		FileRetriever jsonRetriever = new FileRetriever(new FileFilterExtension(".json"));
 		
-		Map<String, File> htmlFiles = htmlRetriever.retrieve(this.sourcedir);
-		Map<String, File> jsonFiles = jsonRetriever.retrieve(this.sourcedir);
+		Set<String> htmlFiles = htmlRetriever.retrievePathsAbsolute(this.sourcedir);
 		
-		for(String htmlName : htmlFiles.keySet()) {
-			
+		int id = 1;
+		for(String htmlPath : htmlFiles) {
+			String[] nameExt = htmlPath.split("\\.");
+			String jsonPath = nameExt[0] + ".meta.json";
+			this.writer.writeAction(index, type, String.valueOf(id), htmlPath, jsonPath);
+			id += 1;
 		}
 	}
-
+	
+//	public static void main(String[] args) {
+//		String prova = "foo.bar";
+//		String[] nameExt = prova.split("\\.");
+//		for(String s : nameExt) {
+//			System.out.println(s);
+//		}
+//	}
 }

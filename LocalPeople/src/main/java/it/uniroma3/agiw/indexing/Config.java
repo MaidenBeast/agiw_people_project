@@ -5,12 +5,12 @@ import java.util.List;
 import java.util.Properties;
 import java.util.Scanner;
 
-public class BulkConfig {
+public class Config {
 	
 	final String delim = ",";
 	private Properties bulkProperties;
 	
-	public BulkConfig(String propertyPath) throws Exception {
+	public Config(String propertyPath) throws Exception {
 		this.bulkProperties = this.loadProperties(propertyPath);
 	}
 	

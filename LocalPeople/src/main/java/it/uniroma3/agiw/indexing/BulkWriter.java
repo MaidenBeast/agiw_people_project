@@ -13,12 +13,12 @@ import org.json.simple.parser.ParseException;
 public class BulkWriter {
 	
 	private PrintStream destStream;
-	private BulkConfig config;
+	private Config config;
 	private FileOutputStream fs;
 	
 	public BulkWriter(String destination) throws Exception {
 		this.destStream = new PrintStream(new File(destination));
-		this.config = new BulkConfig("bulkwriter.properties");
+		this.config = new Config("bulkwriter.properties");
 	}
 	
 	public void writeAction(String index, String type, String id, String htmlPath, String metaPath) throws Exception {
