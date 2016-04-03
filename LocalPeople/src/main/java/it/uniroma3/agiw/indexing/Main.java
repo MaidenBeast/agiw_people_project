@@ -40,6 +40,9 @@ public class Main {
 				System.out.println("Errore durante la scrittura dei comandi bulk");
 				e.printStackTrace(new PrintStream("errortrace.txt"));
 			}
+			
+			System.out.println("Indicizzazione completata. Sottoporre il file a ElasticSearch.");
+			System.out.println("Sintassi: curl -s -X POST http:\\\\localhost:9200\\_bulk --data-binary @<posizione file>");
 		}
 	}
 }
