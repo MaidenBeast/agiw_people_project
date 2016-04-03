@@ -13,14 +13,12 @@ import org.json.simple.parser.ParseException;
 public class BulkWriter {
 	
 	private PrintStream destStream;
-	private final String indexField = "\"_index\":";
-	private final String typeField = "\"_type\":";
-	private final String idField = "\"_id\":";
-	private final String[] metaFields = {"bing_query_string", "title", "description", "url"};
+	private BulkConfig config;
 	private FileOutputStream fs;
 	
-	public BulkWriter(String destination) throws FileNotFoundException {
+	public BulkWriter(String destination) throws Exception {
 		this.destStream = new PrintStream(new File(destination));
+		this.config = new BulkConfig("bulkwriter.properties");
 	}
 	
 	public void writeAction(String index, String type, String id, String htmlPath, String metaPath) throws Exception {
@@ -32,9 +30,9 @@ public class BulkWriter {
 		JSONObject toWrite = new JSONObject();
 		JSONObject actionParameters = new JSONObject();
 		
-		actionParameters.put("_index", index);
-		actionParameters.put("_type", type);
-		actionParameters.put("_id", id);
+		actionParameters.put(this.config.getPropertyValue("indexIndexField"), index);
+		actionParameters.put(this.config.getPropertyValue("typeIndexField"), type);
+		actionParameters.put(this.config.getPropertyValue("idIndexField"), id);
 		toWrite.put("index", actionParameters);
 		
 		this.writeJSON(toWrite);
@@ -46,7 +44,7 @@ public class BulkWriter {
 		MetaParser metaParser = new MetaParser(metaPath);
 		
 		JSONObject toWrite = new JSONObject();
-		for (String mf : this.metaFields) {
+		for (String mf : this.config.getPropertyArray("metaFields")) {
 			toWrite.put(mf, metaParser.getField(mf));
 		}
 		toWrite.put("html_text", htmlParser.getBodyText());

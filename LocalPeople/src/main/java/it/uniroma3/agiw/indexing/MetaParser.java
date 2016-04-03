@@ -20,10 +20,9 @@ public class MetaParser {
 		return value;
 	}
 	
-	private JSONObject prepareJson(String json) throws IOException, ParseException {
-		JSONParser jsonParser = new JSONParser();
-		JSONObject jsonObject = (JSONObject) jsonParser.parse(new FileReader(json));
-		return jsonObject;
+	private JSONObject prepareJson(String json) throws Exception {
+		FilePreparer fp = new MetaFilePreparer();
+		return (JSONObject) fp.prepare(json);
 	}
 	
 	

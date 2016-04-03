@@ -11,7 +11,7 @@ public class HTMLParser {
 	
 	private Document HTMLDocument;
 	
-	public HTMLParser(String html) throws IOException {
+	public HTMLParser(String html) throws Exception {
 		this.HTMLDocument = this.prepareDocument(html);
 	}
 	
@@ -19,10 +19,8 @@ public class HTMLParser {
 		return this.HTMLDocument.body().text();
 	}
 	
-	private Document prepareDocument(String html) throws IOException {
-		File htmlFile = new File(html);
-		Document doc = Jsoup.parse(htmlFile, "UTF-8");
-		return doc;
+	private Document prepareDocument(String html) throws Exception {
+		FilePreparer fp = new HTMLFilePreparer();
+		return (Document) fp.prepare(html);
 	}
-
 }
