@@ -1,14 +1,6 @@
 package it.uniroma3.agiw.indexing;
 
-import java.io.File;
-import java.io.FileFilter;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.io.PrintStream;
-import java.util.Map;
 import java.util.Set;
-
-import javax.swing.filechooser.FileNameExtensionFilter;
 
 public class BulkBuilder {
 	

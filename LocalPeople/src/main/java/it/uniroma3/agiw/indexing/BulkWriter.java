@@ -1,20 +1,14 @@
 package it.uniroma3.agiw.indexing;
 
 import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.io.FileReader;
 import java.io.PrintStream;
 
 import org.json.simple.JSONObject;
-import org.json.simple.parser.JSONParser;
-import org.json.simple.parser.ParseException;
 
 public class BulkWriter {
 	
 	private PrintStream destStream;
 	private Config config;
-	private FileOutputStream fs;
 	
 	public BulkWriter(String destination) throws Exception {
 		this.destStream = new PrintStream(new File(destination));
