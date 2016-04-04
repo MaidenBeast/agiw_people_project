@@ -8,6 +8,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.TimeZone;
 
+import org.apache.commons.codec.digest.DigestUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.json.JSONObject;
 import org.jsoup.Jsoup;
@@ -27,6 +28,11 @@ public class PeopleDataHandlerThread extends Thread {
 	public void run() {
 		System.out.println("Fetching "+entry.getUrl());
 		this.pEntry.increaseFetchedPages();
+		
+		String replacedName = pEntry.getPerson().getName().replaceAll("\\s|'", "_");
+		String replacedSurname = pEntry.getPerson().getSurname().replaceAll("\\s|'", "_");
+		String outFilename = replacedName+"_"+replacedSurname+"_"+DigestUtils.sha1Hex(entry.getUrl().toString());
+		
 		try {
 			//FileUtils.copyURLToFile(entry.getUrl(), new File("output/"+entry.getBingQueryID()+".html"));
 			Document doc = Jsoup.connect(entry.getUrl().toString()).get();
@@ -49,11 +55,13 @@ public class PeopleDataHandlerThread extends Thread {
 					StringUtils.containsIgnoreCase(entry.getDescription(), pToLowerCase2) ||
 					StringUtils.containsIgnoreCase(text, pToLowerCase2)) {
 				String html = doc.html();
-				PrintWriter out = new PrintWriter("output/"+entry.getBingQueryID()+".html");
+				//PrintWriter out = new PrintWriter("output/"+entry.getBingQueryID()+".html");
+				PrintWriter out = new PrintWriter("output/"+outFilename+".html");
 				out.println(html);
 				out.close();
 				this.pEntry.increaseSavedPages();
-				System.out.println("Saved "+entry.getUrl()+" to "+"output/"+entry.getBingQueryID()+".html "+pEntry.getPerson());
+				//System.out.println("Saved "+entry.getUrl()+" to "+"output/"+entry.getBingQueryID()+".html "+pEntry.getPerson());
+				System.out.println("Saved "+entry.getUrl()+" to "+"output/"+outFilename+".html "+pEntry.getPerson());
 			} else {
 				this.pEntry.increaseDroppedPages();
 				System.out.println("Dropped "+entry.getUrl()+" "+pEntry.getPerson());
@@ -85,10 +93,12 @@ public class PeopleDataHandlerThread extends Thread {
 		
 		FileWriter jsonFile;
 		try {
-			jsonFile = new FileWriter("output/"+entry.getBingQueryID()+".meta.json");
+			//jsonFile = new FileWriter("output/"+entry.getBingQueryID()+".meta.json");
+			jsonFile = new FileWriter("output/"+outFilename+".meta.json");
 			
 			jsonFile.write(outObj.toString());
-			System.out.println("Saved metadata file to "+"output/"+entry.getBingQueryID()+".meta.json");
+			//System.out.println("Saved metadata file to "+"output/"+entry.getBingQueryID()+".meta.json");
+			System.out.println("Saved metadata file to "+"output/"+outFilename+".meta.json");
 			
 			jsonFile.close();
 		} catch (IOException e) {

@@ -30,8 +30,13 @@ public class BingClient {
 	public List<BingEntry> executeBingQuery(Person person, int page) throws IOException {
 		List<BingEntry> bingEntryList = new ArrayList<BingEntry>(50);
 		
-		String query = URLEncoder.encode("'"+person.getName()+" "
-				+person.getSurname()+"'", "UTF-8");
+		String name = person.getName().replaceAll("'", "\\$\\$");
+		String surname = person.getSurname().replaceAll("'", "\\$\\$");
+		
+		String query = URLEncoder.encode("'"+name+" "
+				+surname+"'", "UTF-8");
+		
+		query = query.replaceAll("\\$\\$", "''");
 		
 		String market = URLEncoder.encode("'it-IT'", "UTF-8"); //pagine in italiano
 		String adult = URLEncoder.encode("'Strict'", "UTF-8");
