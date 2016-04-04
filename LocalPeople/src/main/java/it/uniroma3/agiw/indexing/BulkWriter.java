@@ -1,5 +1,8 @@
 package it.uniroma3.agiw.indexing;
 
+import it.uniroma3.agiw.indexing.services.parsing.HTMLParser;
+import it.uniroma3.agiw.indexing.services.parsing.MetaParser;
+
 import java.io.File;
 import java.io.PrintStream;
 

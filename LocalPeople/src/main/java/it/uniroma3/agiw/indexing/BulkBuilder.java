@@ -1,5 +1,8 @@
 package it.uniroma3.agiw.indexing;
 
+import it.uniroma3.agiw.indexing.services.retrieval.FileFilterExtension;
+import it.uniroma3.agiw.indexing.services.retrieval.FileRetriever;
+
 import java.util.Set;
 
 public class BulkBuilder {

@@ -1,4 +1,4 @@
-package it.uniroma3.agiw.indexing;
+package it.uniroma3.agiw.indexing.services.retrieval;
 
 import java.io.FileFilter;
 import java.io.File;

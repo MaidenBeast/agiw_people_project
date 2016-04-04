@@ -1,4 +1,4 @@
-package it.uniroma3.agiw.indexing;
+package it.uniroma3.agiw.indexing.services.processing;
 
 import java.io.FileReader;
 import java.io.IOException;

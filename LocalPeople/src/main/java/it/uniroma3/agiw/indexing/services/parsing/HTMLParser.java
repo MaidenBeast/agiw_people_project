@@ -1,4 +1,7 @@
-package it.uniroma3.agiw.indexing;
+package it.uniroma3.agiw.indexing.services.parsing;
+
+import it.uniroma3.agiw.indexing.services.processing.FilePreparer;
+import it.uniroma3.agiw.indexing.services.processing.HTMLFilePreparer;
 
 import org.jsoup.nodes.Document;
 

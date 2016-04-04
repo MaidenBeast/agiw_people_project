@@ -1,5 +1,8 @@
 package it.uniroma3.agiw.indexing;
 
+import it.uniroma3.agiw.indexing.services.processing.FilePreparer;
+import it.uniroma3.agiw.indexing.services.processing.PropertyFilePreparer;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Properties;
