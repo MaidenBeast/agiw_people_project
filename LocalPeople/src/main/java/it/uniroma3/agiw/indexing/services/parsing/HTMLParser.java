@@ -15,12 +15,21 @@ public class HTMLParser {
 	
 	public String getBodyText() throws Exception {
 		String text = this.HTMLDocument.body().text();
-		DiacriticRemover dr = new DiacriticRemover();
-		return dr.clean(text);
+		return this.diacriticRemoval(text);
+	}
+	
+	public String getBodyHTML() throws Exception {
+		String html = this.HTMLDocument.body().html();
+		return this.diacriticRemoval(html);
 	}
 	
 	private Document prepareDocument(String html) throws Exception {
 		FilePreparer fp = new HTMLFilePreparer();
 		return (Document) fp.prepare(html);
+	}
+	
+	private String diacriticRemoval(String str) throws Exception {
+		DiacriticRemover dr = new DiacriticRemover();
+		return dr.clean(str);
 	}
 }
