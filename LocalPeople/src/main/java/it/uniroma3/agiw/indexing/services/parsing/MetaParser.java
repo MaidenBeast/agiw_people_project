@@ -13,9 +13,15 @@ public class MetaParser {
 		this.jsonObject = this.prepareJson(json);
 	}
 	
-	public Object getField(String fieldName) {
+	public Object getField(String fieldName) throws Exception {
 		Object value = this.jsonObject.get(fieldName);
 		return value;
+	}
+	
+	public String getFieldAsString(String fieldName) throws Exception {
+		String str = (String) this.getField(fieldName);
+		DiacriticRemover dr = new DiacriticRemover();
+		return dr.clean(str);
 	}
 	
 	private JSONObject prepareJson(String json) throws Exception {

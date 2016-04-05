@@ -13,8 +13,10 @@ public class HTMLParser {
 		this.HTMLDocument = this.prepareDocument(html);
 	}
 	
-	public String getBodyText() {
-		return this.HTMLDocument.body().text();
+	public String getBodyText() throws Exception {
+		String text = this.HTMLDocument.body().text();
+		DiacriticRemover dr = new DiacriticRemover();
+		return dr.clean(text);
 	}
 	
 	private Document prepareDocument(String html) throws Exception {

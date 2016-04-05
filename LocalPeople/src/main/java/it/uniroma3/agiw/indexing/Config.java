@@ -11,21 +11,21 @@ import java.util.Scanner;
 public class Config {
 	
 	final String delim = ",";
-	private Properties bulkProperties;
+	private Properties properties;
 	
 	public Config(String propertyPath) throws Exception {
-		this.bulkProperties = this.loadProperties(propertyPath);
+		this.properties = this.loadProperties(propertyPath);
 	}
 	
 	public String getPropertyValue(String key) {
-		return this.bulkProperties.getProperty(key);
+		return this.properties.getProperty(key);
 	}
 	
 	public String[] getPropertyArray(String key) {
 		String[] array = {};
 		List<String> values = new ArrayList<>();
 		
-		Scanner s = new Scanner(this.bulkProperties.getProperty(key));
+		Scanner s = new Scanner(this.properties.getProperty(key));
 		s.useDelimiter(this.delim);
 		while (s.hasNext()) {
 			values.add(s.next());
