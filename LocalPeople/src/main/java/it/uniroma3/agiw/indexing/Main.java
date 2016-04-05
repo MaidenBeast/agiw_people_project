@@ -36,7 +36,7 @@ public class Main {
 			try {
 				builder.buildBulk(index, type);
 				System.out.println("Indicizzazione completata. Sottoporre il file a ElasticSearch.");
-				System.out.println("Sintassi: curl -s -X POST http:\\\\localhost:9200\\_bulk --data-binary @<posizione file>");
+				System.out.println("Sintassi: curl -s -X POST http://localhost:9200/_bulk --data-binary @<posizione file>");
 			}
 			catch (Exception e) {
 				System.out.println("Errore durante la scrittura dei comandi bulk");
