@@ -1,26 +1,24 @@
 <html>
 	<head>
 		<script type="text/javascript" src="./js/jquery-2.2.2.min.js"></script>
+		<script type="text/javascript" src="./js/jquery.easing.1.3.js"></script>
 		<script type="text/javascript" src="./js/url.min.js"></script>
 		<script type="text/javascript" src="./js/people.js"></script>
 		<link rel="stylesheet" type="text/css" href="./css/style.css"/>
+		<link href='http://fonts.googleapis.com/css?family=Open+Sans:400italic,600italic,700italic,400,600,700' rel='stylesheet' type='text/css'>
 
 		<script>
 
 			$(document).ready(function () {
-				if ($.url("query")) { //si vuole già far apparire l'output di una query
-
-				}
-				else {
-					print_index();
-				}
+				window.hostname = $.url("hostname");
+				print_index($.url("query"));
 			});
 
 		</script>
 
 	</head>
 	<body>
-		<div id="container">
+		<div id="container" style="display:none;">
 		</div>
 	</body>
 </html>
