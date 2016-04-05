@@ -15,11 +15,15 @@ public class MetaParser {
 	
 	public Object getField(String fieldName) throws Exception {
 		Object value = this.jsonObject.get(fieldName);
+		if (value == null) {
+			value = "";
+		}
 		return value;
 	}
 	
 	public String getFieldAsString(String fieldName) throws Exception {
 		String str = (String) this.getField(fieldName);
+		System.out.println(str);
 		DiacriticRemover dr = new DiacriticRemover();
 		return dr.clean(str);
 	}

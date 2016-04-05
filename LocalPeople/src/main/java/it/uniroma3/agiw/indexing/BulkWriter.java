@@ -42,7 +42,7 @@ public class BulkWriter {
 		
 		JSONObject toWrite = new JSONObject();
 		for (String mf : this.config.getPropertyArray("metaFields")) {
-			toWrite.put(mf, metaParser.getField(mf));
+			toWrite.put(mf, metaParser.getFieldAsString(mf));
 		}
 		toWrite.put("html_text", htmlParser.getBodyHTML());
 		
