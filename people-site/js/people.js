@@ -116,6 +116,8 @@ function execute_query(query_string, page) {
 
         		$("#footer").append('<table><tbody><tr></tr><tbody></table>');
 
+
+        		//TODO migliorare paginazione (facendo come Google)
         		for (var i = 1; i<=pages; i++) {
         			var page_to_append;
 
