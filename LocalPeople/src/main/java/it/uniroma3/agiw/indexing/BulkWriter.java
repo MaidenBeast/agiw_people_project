@@ -44,7 +44,8 @@ public class BulkWriter {
 		for (String mf : this.config.getPropertyArray("metaFields")) {
 			toWrite.put(mf, metaParser.getFieldAsString(mf));
 		}
-		toWrite.put("html_text", htmlParser.getBodyHTML());
+		//toWrite.put("html_text", htmlParser.getBodyHTML());
+		toWrite.put("html_text", htmlParser.getBodyText());
 		
 		this.writeJSON(toWrite);
 	}
