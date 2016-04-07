@@ -42,8 +42,14 @@ div.entry {
 
 #container.searched #search-form {
 	margin: 0px;
+	margin-bottom: 25px;
 	padding: 0px;
 	height: auto;
+}
+
+#counter {
+	text-align: left;
+	margin-bottom: 25px;
 }
 
 .form-container {
