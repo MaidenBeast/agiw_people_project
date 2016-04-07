@@ -110,8 +110,11 @@ function execute_query(query_string, page) {
 
         		var hits = response.hits.hits;
         		for (var i = 0; i<hits.length; i++) {
+        			var scoring = Math.round(hits[i]._score*1000);
+
         			var entry_to_append = '<div class="entry">'+
-        								'<div><a class="link" href="'+hits[i].fields.url[0]+'">'+hits[i].fields.title[0]+'</a></div>'+
+        								'<div><a class="link" href="'+hits[i].fields.url[0]+'">'+hits[i].fields.title[0]+'</a>'+
+        								'<span>Score: '+hits[i]._score+'<progress value="'+scoring+'" max="1000"></progress></span></div>'+
         								'<div class="url">'+hits[i].fields.url[0]+'</div>'+
         								'<div class="description">'+hits[i].fields.description[0]+'</div>';
         			
