@@ -15,28 +15,44 @@ var elastic_query = {
 	},
 	"query": {
 		"multi_match": {
-			"fields": ["title", "description", "html_text"],
-			"query": ""	//da cambiare in runtime
+			"fields": ["title^3", "description^2", "html_text"],
+			"query": "",
+			"type": "best_fields"
 		}
 	}
 };
 
 //Sistemi di query alternativi: sostituire alla voce query di elastic_query
 var standard = {
-		"query:" {
-			"multi_match": {
-				"fields": ["title", "description", "html_text"],
-				"query": ""
-			}
+		"multi_match": {
+			"fields": ["title", "description", "html_text"],
+			"query": ""
 		}
 }
 
 var relevance_byField = {
-		"query:" {
 			"multi_match": {
 				"fields": ["title^1.5", "description^1.25", "html_text"],
 				"query": "",
 				"type": "best_fields"
+			}
+}
+
+var tryPhrase = {
+		"bool": {
+			"must": {
+				"multi_match": {
+					"fields": ["title^3", "description^2", "html_text"],
+					"query": "",
+					"type": "best_fields"
+				}
+			},
+			"should": {
+				"multi_match": {
+					"fields": ["title^3", "description^2", "html_text"],
+					"query": "",
+					"type": "phrase"
+				}
 			}
 		}
 }
