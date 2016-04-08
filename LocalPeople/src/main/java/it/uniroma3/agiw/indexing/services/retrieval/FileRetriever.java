@@ -28,6 +28,29 @@ public class FileRetriever {
 		return names;
 	}
 	
+	public Set<String> retrieveNames(String directory) {
+		File [] found = this.fetch(directory);
+		Set<String> names = new TreeSet<>();
+		
+		for (File file : found) {
+			String filename = file.getName();
+			names.add(filename);
+		}
+		
+		return names;
+	}
+	
+	public Set<File> retrieveFiles(String directory) {
+		File[] found = this.fetch(directory);
+		Set<File> files = new TreeSet<>();
+		
+		for (File file : found) {
+			files.add(file);
+		}
+		
+		return files;
+	}
+		
 	public Map<String, File> retrieve(String directory) {
 		File[] found = this.fetch(directory);
 		Map<String, File> name2path = new TreeMap<>();

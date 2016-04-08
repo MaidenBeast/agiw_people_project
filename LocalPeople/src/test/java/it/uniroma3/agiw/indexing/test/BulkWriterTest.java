@@ -30,6 +30,16 @@ public class BulkWriterTest {
 	@Test
 	public void testWriteAction() throws Exception {
 		this.writer.writeAction(this.campoIndex, this.campoType, this.campoId, this.fileHTML, this.fileMeta);
+		this.readContents();
+	}
+	
+	@Test
+	public void testWriteAction_noId() throws Exception {
+		this.writer.writeAction(this.campoIndex, this.campoType, this.fileHTML, this.fileMeta);
+		this.readContents();
+	}
+	
+	private void readContents() throws Exception {
 		BufferedReader reader = null;
 		try {
 			reader = new BufferedReader(new FileReader(this.file));
@@ -44,7 +54,7 @@ public class BulkWriterTest {
 		finally {
 			if (reader != null) {
 				reader.close();
-			}
+			}		
 		}
 	}
 }
