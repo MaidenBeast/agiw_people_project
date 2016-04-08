@@ -14,12 +14,18 @@ public class HTMLParser {
 	}
 	
 	public String getBodyText() throws Exception {
-		String text = this.HTMLDocument.body().text();
+		String text = "";
+		if (this.HTMLDocument.body()!=null) {
+			text = this.HTMLDocument.body().text();
+		}
 		return this.diacriticRemoval(text);
 	}
 	
 	public String getBodyHTML() throws Exception {
-		String html = this.HTMLDocument.body().html();
+		String html = ""; 
+		if (this.HTMLDocument.body()!=null) {
+			this.HTMLDocument.body().html();
+		}
 		return this.diacriticRemoval(html);
 	}
 	
