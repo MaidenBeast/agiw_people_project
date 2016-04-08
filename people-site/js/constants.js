@@ -20,3 +20,23 @@ var elastic_query = {
 		}
 	}
 };
+
+//Sistemi di query alternativi: sostituire alla voce query di elastic_query
+var standard = {
+		"query:" {
+			"multi_match": {
+				"fields": ["title", "description", "html_text"],
+				"query": ""
+			}
+		}
+}
+
+var relevance_byField = {
+		"query:" {
+			"multi_match": {
+				"fields": ["title^1.5", "description^1.25", "html_text"],
+				"query": "",
+				"type": "best_fields"
+			}
+		}
+}
