@@ -29,7 +29,7 @@ public class BulkWriter {
 		
 		actionParameters.put(this.config.getPropertyValue("indexIndexField"), index);
 		actionParameters.put(this.config.getPropertyValue("typeIndexField"), type);
-		actionParameters.put(this.config.getPropertyValue("idIndexField"), id);
+		//actionParameters.put(this.config.getPropertyValue("idIndexField"), id);
 		toWrite.put("index", actionParameters);
 		
 		this.writeJSON(toWrite);
