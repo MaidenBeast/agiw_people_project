@@ -38,21 +38,18 @@ var relevance_byField = {
 			}
 }
 
-var tryPhrase = {
+var match_withKeywords = {
 		"bool": {
-			"must": {
+			"must": [{
 				"multi_match": {
 					"fields": ["title^3", "description^2", "html_text"],
 					"query": "",
 					"type": "best_fields"
 				}
-			},
-			"should": {
-				"multi_match": {
-					"fields": ["title^3", "description^2", "html_text"],
-					"query": "",
-					"type": "phrase"
+			}, {
+				"match": {
+					"html_text": ""
 				}
-			}
+			}]
 		}
 }
