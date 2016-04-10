@@ -39,7 +39,13 @@ var askCategory = function(qstr, qobj) {
 	}
 	else {
 		var category = qstr.split(":")[1];
-		qobj.query.bool.must[1].match.html_text = keywords[category];
+		var cat_keywords = keywords[category];
+		if (cat_keywords == undefined) {
+			qobj.query.bool.must.splice(1, 1);
+		}
+		else {
+			qobj.query.bool.must[1].match.html_text = keywords[category];
+		}
 	}
 }
 
