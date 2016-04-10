@@ -7,5 +7,11 @@ var marina_trigger = ["marina"]
 
 var keywords = {
 		"pallavolo" : "palla muro gioco campo squadra rete avversario passaggio attacco bagher",
-		"marina" : "monitoraggio superiori salvataggio corpi materiali attrezzature remiero acqua porti minaccia"
+		"marina" : "monitoraggio superiori salvataggio corpi materiali attrezzature remiero acqua porti minaccia",
+		"doppiaggio": "", //
+		"pallacanestro": "", //
+		"pugilato": "", //
+		"biliardo": "", //
+		"scherma": "", //
+		"matematica": "" 
 }
