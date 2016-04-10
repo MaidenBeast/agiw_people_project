@@ -18,6 +18,7 @@ public class BulkWriter {
 		this.config = new Config("bulkwriter.properties");
 	}
 	
+	//Versione preliminare del metodo usata in fase di test. Può considerarsi deprecata.
 	public void writeAction(String index, String type, String id, String htmlPath, String metaPath) throws Exception {
 		this.writeIndexAction(index, type, id);
 		this.writeSource(htmlPath, metaPath);
