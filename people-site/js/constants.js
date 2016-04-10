@@ -23,6 +23,8 @@ var elastic_query = {
 };
 
 //Sistemi di query alternativi: sostituire alla voce query di elastic_query
+
+//Usati solo in fase sperimentale
 var standard = {
 		"multi_match": {
 			"fields": ["title", "description", "html_text"],
@@ -38,6 +40,7 @@ var relevance_byField = {
 			}
 }
 
+//Usato in fase di deployment
 var match_withKeywords = {
 		"bool": {
 			"must": [{

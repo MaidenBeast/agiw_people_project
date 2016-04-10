@@ -89,27 +89,17 @@ function execute_query(query_string, page) {
 		}
 	};*/
 	
-//	var my_query = new submitted_query();
-//	var queryObject = my_query.queryObject;
-//	queryObject["from"] = 10*(page-1);
-//	queryObject["query"] = match_withKeywords;
-//	setUpQuery(query_string, queryObject);
-//	parseQueryString(askCategory, query_string, queryObject);
-
+	elastic_query = queryReset();
 	elastic_query["from"] = 10*(page-1);
-	elastic_query["query"] = match_withKeywords;
 	setUpQuery(query_string, elastic_query);
 	parseQueryString(askExactName, query_string, elastic_query);
 	parseQueryString(askCategory, query_string, elastic_query);
 	
-//	//Settaggio query
-//	match_withKeywords["bool"]["must"][0]["multi_match"]["query"] = query_string;
-//	//TEST - Parte in automatico per ogni query. Nella versione definitiva deve essere innescato da un trigger nella query string
-//	match_withKeywords["bool"]["must"][1]["match"]["html_text"] = pallavolo_words;
-//	//Selezione tipo di query
+//	elastic_query["from"] = 10*(page-1);
 //	elastic_query["query"] = match_withKeywords;
-	
-	
+//	setUpQuery(query_string, elastic_query);
+//	parseQueryString(askExactName, query_string, elastic_query);
+//	parseQueryString(askCategory, query_string, elastic_query);
 
 	$.ajax({
 		url: "http://"+window.hostname+":9200/people/page/_search", //endpoint elastic

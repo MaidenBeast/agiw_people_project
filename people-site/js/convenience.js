@@ -3,25 +3,47 @@
  */
 var stoptokens = /[':]/g;
 
-//Costruttore di query
-function submitted_query() {
-	this.queryObject = {
-			"from": 0,		//da cambiare in runtime
-			"size": 10,
-			"_source": false,
-			"fields": ["title", "description", "url"],
-			"highlight": {
-				"fields": {
-					"html_text": {
-						"fragment_size" : 150,
-						"number_of_fragments" : 3,
-						"pre_tags" : ["<b>"],
-						"post_tags" : ["</b>"]
-					}
+//Inizializzatore di query
+function initQuery() {
+	return {
+		"from": 0,		//da cambiare in runtime
+		"size": 10,
+		"_source": false,
+		"fields": ["title", "description", "url"],
+		"highlight": {
+			"fields": {
+				"html_text": {
+					"fragment_size" : 150,
+					"number_of_fragments" : 3,
+					"pre_tags" : ["<b>"],
+					"post_tags" : ["</b>"]
 				}
-			},
-			"query": match_withKeywords
-	}
+			}
+		},
+		"query": initBool()
+	};
+}
+
+function initBool() {
+	return {
+		"bool": {
+			"must": [{
+				"multi_match": {
+					"fields": ["title^3", "description^2", "html_text"],
+					"query": "",
+					"type": "best_fields"
+				}
+			}, {
+				"match": {
+					"html_text": ""
+				}
+			}]
+		}
+};
+}
+
+function queryReset() {
+	return initQuery();
 }
 
 function parseQueryString(parse_function, query_string, query_obj) {
@@ -31,6 +53,9 @@ function parseQueryString(parse_function, query_string, query_obj) {
 function setUpQuery(qstr, qobj) {
 	var cleanString = qstr.replace(stoptokens, "");
 	qobj.query.bool.must[0].multi_match.query = cleanString;
+	//Situazione precedente
+//	var cleanString = qstr.replace(stoptokens, "");
+//	qobj.query.bool.must[0].multi_match.query = cleanString;
 }
 
 var askCategory = function(qstr, qobj) {
