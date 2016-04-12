@@ -95,8 +95,6 @@ function execute_query(query_string, page) {
 	queryObject["query"] = match_withKeywords;
 	setUpQuery(query_string, queryObject);
 	parseQueryString(askCategory, query_string, queryObject);
-	Console.log(queryObject);
-
 //	elastic_query["from"] = 10*(page-1);
 //	elastic_query["query"] = match_withKeywords;
 //	setUpQuery(query_string, elastic_query);

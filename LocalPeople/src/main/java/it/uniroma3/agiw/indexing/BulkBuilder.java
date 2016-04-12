@@ -20,12 +20,10 @@ public class BulkBuilder {
 		
 		Set<String> htmlFiles = htmlRetriever.retrievePathsAbsolute(this.sourcedir);
 		
-		int id = 1;
 		for(String htmlPath : htmlFiles) {
 			String[] nameExt = htmlPath.split("\\.");
 			String jsonPath = nameExt[0] + ".meta.json";
-			this.writer.writeAction(index, type, String.valueOf(id), htmlPath, jsonPath);
-			id += 1;
+			this.writer.writeAction(index, type, htmlPath, jsonPath);
 		}
 	}
 }
