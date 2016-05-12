@@ -42,7 +42,7 @@ function render_search_bar() {
 }
 
 function open_page() {
-	$.get("skeletons/first-page.html", function(data) {
+	$.get("/skeletons/first-page.html", function(data) {
 		$("#container").html(data);
 		render_search_bar();
 
@@ -88,9 +88,18 @@ function execute_query(query_string, page) {
 			}
 		}
 	};*/
-
+	
+	elastic_query = queryReset();
 	elastic_query["from"] = 10*(page-1);
-	elastic_query["query"]["multi_match"]["query"] = query_string;
+	setUpQuery(query_string, elastic_query);
+	parseQueryString(askExactName, query_string, elastic_query);
+	parseQueryString(askCategory, query_string, elastic_query);
+	
+//	elastic_query["from"] = 10*(page-1);
+//	elastic_query["query"] = match_withKeywords;
+//	setUpQuery(query_string, elastic_query);
+//	parseQueryString(askExactName, query_string, elastic_query);
+//	parseQueryString(askCategory, query_string, elastic_query);
 
 	$.ajax({
 		url: "http://"+window.hostname+":9200/people/page/_search", //endpoint elastic

@@ -23,7 +23,6 @@ public class MetaParser {
 	
 	public String getFieldAsString(String fieldName) throws Exception {
 		String str = (String) this.getField(fieldName);
-		System.out.println(str);
 		DiacriticRemover dr = new DiacriticRemover();
 		return dr.clean(str);
 	}
