@@ -23,7 +23,13 @@ public class PageCollecter {
 	public void collect() throws JsonParseException, JsonMappingException, IOException {
 		ObjectMapper mapper = null;
 		
-		File inFolderFile = new File(inFolder);
+		File inFolderFile = new File(this.inFolder);
+		
+		File outFolderFile = new File(this.inFolder);
+		
+		if (!outFolderFile.exists()) { //se non esiste la cartella di output
+			outFolderFile.mkdirs(); //creala
+		}
 		
 		for (File inFile : inFolderFile.listFiles()) {
 			String inFileName = inFile.getName();
@@ -32,7 +38,7 @@ public class PageCollecter {
 				mapper = new ObjectMapper();
 				
 				String prefixFile = inFileName.substring(0, inFileName.indexOf(".meta.json"));
-				File inHtmlFile = new File(prefixFile+".html");
+				File inHtmlFile = new File(this.inFolder+"/"+prefixFile+".html");
 				
 				PageEntry pEntry = mapper.readValue(inFile, PageEntry.class);
 				
@@ -54,6 +60,7 @@ public class PageCollecter {
 											+prefixFile
 											+".json");
 				this.writeToJsonFile(jsonOutFile, url, html);
+				System.out.println("Salvato file "+jsonOutFile.getName());
 				
 			}
 		}
